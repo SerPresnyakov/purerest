@@ -1,31 +1,16 @@
 
 import {Deps} from "./Deps";
 import {Config} from "./Config";
-import {indexState} from "./index/State"
 import {Run} from "./Run";
+import {states} from "./States";
+import CrudModule from "./crud/Module"
 
 const module = angular.module("app", [
-    Deps.material,
-    Deps.uiRouter
+    Deps.uiRouter,
+    CrudModule
 ]);
 
-Config.registerStates(module.name, [
-    indexState,
-    {
-        name: "index.first",
-        config: {
-            url: "first",
-            template: "firstState!"
-        }
-    },
-    {
-        name: "index.second",
-        config: {
-            url: "second",
-            template: "secondState!"
-        }
-    },
-]);
+Config.registerStates(module.name, states);
 
 module.run(Run);
 
