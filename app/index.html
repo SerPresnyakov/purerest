@@ -1,63 +1,24 @@
 <!DOCTYPE html>
-<html lang="ru" >
+<html lang="ru" ng-app="app">
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
 
     <link rel='stylesheet' href='bower/angular-material/angular-material.css' />
     <link rel='stylesheet' href='bower/font-awesome/css/font-awesome.min.css' />
-    <link rel='stylesheet' href='bower/angular-material-sidenav/angular-material-sidenav.css' />
-
+    <link rel='stylesheet' href='css/App.css' />
 
 </head>
 
-<body ng-app="app" layout="column">
+<body>
 
-
-    <!-- Container #3 -->
-
-    <div flex layout="row">
-        <md-sidenav flex="15" md-is-locked-open="true" class="md-whiteframe-z1">
-            <md-toolbar class="site-content-toolbar">
-                <div class="md-toolbar-tools docs-toolbar-tools" >
-                    Admin
-                </div>
-            </md-toolbar>
-            <md-content flex="" role="navigation" class="flex">
-
-            </md-content>
-        </md-sidenav>
-        <div layout="column" role="main" flex="" class="layout-column flex">
-            <md-toolbar layout="row" layout-align="end">
-                <md-button >
-                    <md-icon md-font-icon="fa-bars" class="fa"">
-
-                    </md-icon>
-                </md-button>
-                <md-button aria-label="First Button"> Выход </md-button>
-            </md-toolbar>
-        </div>
-        <!--<div layout="column" flex>-->
-            <!--<div class="box1">-->
-                <!--70-->
-            <!--</div>-->
-            <!--<div class="box2">-->
-                <!--fixed-->
-            <!--</div>-->
-            <!--<div class="box3">-->
-                <!--flex-->
-            <!--</div>-->
-        <!--</div>-->
-
-    </div>
-
+<div ui-view></div>
 
 <script src="bower/angular/angular.min.js"></script>
 <script src="bower/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="bower/angular-animate/angular-animate.min.js"></script>
 <script src="bower/angular-aria/angular-aria.min.js"></script>
 <script src="bower/angular-material/angular-material.js"></script>
-<script src="bower/angular-material-sidenav/angular-material-sidenav.js"></script>
 
 <script src="js/main.bundle.js"></script>
 

@@ -23,6 +23,7 @@
     "angular": "~1.5.1",
     "angular-material": "~1.0.6",
     "angular-ui-router": "ui-router#~0.2.18",
-    "angular-material-sidenav": "~0.0.13"
+    "angular-material-sidenav": "~0.0.13",
+    "font-awesome": "~4.5.0"
   }
 }
