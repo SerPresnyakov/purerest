@@ -1,20 +1,33 @@
-<md-sidenav class="md-sidenav-left md-whiteframe-z2"
-            md-component-id="left"
-            md-is-locked-open="$mdMedia('gt-sm')">
+<div layout="row" flex>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z3"
+                md-component-id="left"
+                md-is-locked-open="$mdMedia('gt-sm')">
 
-    <header class="nav-header" ss-style-color="{'background-color': 'primary.default'}">
-        <a ng-href="#/" class="logo">
-            <h1 class="md-heading">Admin</h1>
-        </a>
-    </header>
+        <md-toolbar>
+            <h3>Admin</h3>
+        </md-toolbar>
 
-    <md-content flex role="navigation" ss-style-color="{'background-color': 'primary.default'}">
-        <ss-sidenav flex menu="menu"></ss-sidenav>
-    </md-content>
-</md-sidenav>
+        <md-content flex role="navigation">
+            <md-list>
+                <md-list-item>
+                    <md-button>Main</md-button>
+                </md-list-item>
+                <md-list-item>
+                    <md-button>Second</md-button>
+                </md-list-item>
+            </md-list>
+        </md-content>
 
-<div layout="column" flex role="main">
-    <div layout="column">
-        blabla
+    </md-sidenav>
+
+    <div layout="column" flex>
+        <md-toolbar layout="row">
+            <md-button>
+                <md-icon md-font-icon="fa fa-bars"></md-icon>
+            </md-button>
+        </md-toolbar>
+        <div>
+            Some big content
+        </div>
     </div>
 </div>
