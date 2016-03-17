@@ -1,7 +1,16 @@
 class Ctrl {
-    constructor() {
-        console.log("tadam")
+
+    static $inject = ["$mdSidenav"];
+
+    constructor(
+        private sidenav: ng.material.ISidenavService
+    ) {}
+
+    toggleNav(name: string) {
+        var a = this.sidenav(name);
+        a.toggle().then((inst) => console.debug("nav", inst))
     }
+
 }
 
 export const indexState: iRegister<ng.ui.IState> = {
