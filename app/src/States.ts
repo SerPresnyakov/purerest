@@ -9,7 +9,7 @@ export const states: iRegister<ng.ui.IState>[] = [
         name: "index.first",
         config: {
             url: "first",
-            template: "asd<ak-crud-table config=\"config\">",
+            template: "<ak-crud-table config=\"config\">",
             controller: ["config", "$scope", (config, s) => {
                 s['config'] = config
             }],
