@@ -1,9 +1,12 @@
 declare module crud {
 
     interface Field {
-        name: string
         title: string
-        type: "num" | "str" | "bool"
+        type: "num" | "str" | "bool",
+        rel?: {
+            dao: string
+            displayField?: string
+        }
     }
 
     interface iCrudTableConfig {
@@ -19,7 +22,7 @@ declare module crud {
             }
         }
 
-        fields: Array<Field>
+        fields: { [name: string]: Field }
 
     }
 

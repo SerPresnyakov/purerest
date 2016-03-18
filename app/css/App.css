@@ -6,7 +6,3 @@ md-toolbar h3 {
 md-list-item > a {
     width:100%;
 }
-
-.ng-scope {
-    height: 100%;
-}

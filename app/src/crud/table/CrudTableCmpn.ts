@@ -4,9 +4,13 @@ import {Page} from "../source/Page";
 import {Source} from "../source/Source";
 import iCrudTableConfig = crud.iCrudTableConfig;
 
+import {getDialog} from "./autocompleteDialog/Cmpn"
+
 class Ctrl {
 
     static $inject = ["$injector"];
+
+    $editDialog: mdTable.EditDialogService;
 
     config: iCrudTableConfig;
 
@@ -14,9 +18,44 @@ class Ctrl {
     pager: Pager;
 
     constructor(inj: ng.auto.IInjectorService) {
+        this.$editDialog = inj.get<mdTable.EditDialogService>("$mdEditDialog");
         this.source = new Source(this.config.sourceName, this.config.dao.url, inj);
         this.pager = new Pager(1, 15);
         this.refreshPage()
+    }
+
+    editProp($event: ng.IAngularEvent, origin: any, fieldName: string) {
+
+        $event.stopPropagation();
+
+        let field: crud.Field  = this.config.fields[fieldName];
+
+        if (field) {
+
+            if (field.rel) {
+
+                this.$editDialog.show(getDialog($event, field, origin))
+
+            } else if (field.type == 'str') {
+
+                this.$editDialog.small({
+                    modelValue: origin[fieldName],
+                    type: "text",
+                    targetEvent: $event,
+                    save: (ctrl: ng.INgModelController) => {
+                        origin[fieldName] = ctrl.$modelValue
+                    },
+                    placeholder: field.title
+                })
+
+            } else {
+                console.log('Unsupported field type')
+            }
+
+        } else {
+            console.warn(`Field '${fieldName}' not configured`)
+        }
+
     }
 
     refreshPage(): void {

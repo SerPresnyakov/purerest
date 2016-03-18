@@ -1,0 +1,17 @@
+<md-edit-dialog>
+    <div layout="column" class="md-content">
+        <md-autocomplete
+                md-selected-item="vm.selectedItem"
+                md-search-text-change="console.log(vm.searchText)"
+                md-search-text="vm.searchText"
+                md-items="item in vm.query(vm.searchText)"
+                md-item-text="item.display"
+                md-min-length="0"
+                placeholder="{{vm.field.title}}">
+            <md-item-template>
+                <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.display}}</span>
+            </md-item-template>
+            <!--<md-not-found>Не найдено</md-not-found>-->
+        </md-autocomplete>
+    </div>
+</md-edit-dialog>

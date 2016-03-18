@@ -4,24 +4,24 @@ import iCrudTableConfig = crud.iCrudTableConfig;
 export const resourceTable: iCrudTableConfig = {
     sourceName: "Таблицы",
     dao: {
-        url: "/api/resource",
+        url: "/api/direct/bannerGroup?token=1:god&include=region,brand",
         rights: {
-            insert: true,
+            insert: false,
             update: true,
-            delete: true
+            delete: false
         }
     },
-    fields: [{
-        name: "name",
-        title: "название",
-        type: "str"
-    }, {
-        name: "tableName",
-        title: "таблица",
-        type: "str"
-    }, {
-        name: "url",
-        title: "url",
-        type: "str"
-    }]
+    fields: {
+        brandId: {
+            title: "Бренд",
+            type: "num",
+            rel: {
+                dao: "/api/refs/brand"
+            }
+        },
+        model: {
+            title: "Модель",
+            type: "str"
+        }
+    }
 };
