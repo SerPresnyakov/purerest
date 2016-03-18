@@ -10,6 +10,7 @@
   },
   "files": [
     "./typings/main.d.ts",
-    "./dts/global.d.ts"
+    "./dts/global.d.ts",
+    "./dts/crud.d.ts"
   ]
 }
