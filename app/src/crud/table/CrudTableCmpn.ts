@@ -4,21 +4,23 @@ import {Page} from "../source/Page";
 import {Source} from "../source/Source";
 import iCrudTableConfig = crud.iCrudTableConfig;
 
-import {getDialog} from "./autocompleteDialog/Cmpn"
+import {getDialog as autocompleteDialog} from "./autocompleteDialog/Cmpn"
+import {getDialog as createDialog} from "./create/Cmpn"
 
 class Ctrl {
 
-    static $inject = ["$injector"];
-
-    $editDialog: mdTable.EditDialogService;
+    static $inject = ["$injector", "$mdEditDialog", "$mdDialog"];
 
     config: iCrudTableConfig;
 
     source: Source;
     pager: Pager;
 
-    constructor(inj: ng.auto.IInjectorService) {
-        this.$editDialog = inj.get<mdTable.EditDialogService>("$mdEditDialog");
+    constructor(
+        inj: ng.auto.IInjectorService,
+        public $editDialog: mdTable.EditDialogService,
+        public $mdDialog: ng.material.IDialogService
+    ) {
         this.source = new Source(this.config.sourceName, this.config.dao.url, inj);
         this.pager = new Pager(1, 15);
         this.refreshPage()
@@ -28,13 +30,13 @@ class Ctrl {
 
         $event.stopPropagation();
 
-        let field: crud.Field  = this.config.fields[fieldName];
+        let field: crud.iField  = this.config.fields[fieldName];
 
         if (field) {
 
             if (field.rel) {
 
-                this.$editDialog.show(getDialog($event, field, origin))
+                this.$editDialog.show(autocompleteDialog($event, field, origin))
 
             } else if (field.type == 'str') {
 
@@ -55,6 +57,12 @@ class Ctrl {
         } else {
             console.warn(`Field '${fieldName}' not configured`)
         }
+
+    }
+
+    create($event: ng.IAngularEvent) {
+
+        this.$mdDialog.show(createDialog($event, this.config))
 
     }
 

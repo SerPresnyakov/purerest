@@ -2,7 +2,7 @@ import iCrudTableConfig = crud.iCrudTableConfig;
 
 //noinspection TypeScriptValidateTypes
 export const resourceTable: iCrudTableConfig = {
-    sourceName: "Таблицы",
+    sourceName: "Группы объявлений",
     dao: {
         url: "/api/direct/bannerGroup?token=1:god&include=region,brand",
         rights: {

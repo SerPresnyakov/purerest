@@ -1,6 +1,6 @@
 declare module crud {
 
-    interface Field {
+    interface iField {
         title: string
         type: "num" | "str" | "bool",
         rel?: {
@@ -22,7 +22,7 @@ declare module crud {
             }
         }
 
-        fields: { [name: string]: Field }
+        fields: { [name: string]: iField }
 
     }
 

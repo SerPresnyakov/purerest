@@ -1,21 +1,20 @@
 class Ctrl {
 
-    static $inject = ["field", "origin", "$http"];
+    static $inject = ["field", "origin", "$http", "event"];
 
     selectedItem: any;
     searchText: string;
 
-    bla = 1;
-
     constructor(
-        public field: crud.Field,
+        public field: crud.iField,
         public origin: any,
-        public $http: ng.IHttpService
+        public $http: ng.IHttpService,
+        public $event: ng.IAngularEvent
     ) {
         var alex = "1"
     }
 
-    query(text: string): ng.IPromise<any[]> {
+    querySearch(text: string): ng.IPromise<any[]> {
 
         var asd = 1;
 
@@ -29,16 +28,17 @@ class Ctrl {
 
 }
 
-export const getDialog = (event: ng.IAngularEvent, field: crud.Field, origin: any) => {
+export const getDialog = (event: ng.IAngularEvent, field: crud.iField, origin: any) => {
     return {
         bindToController: true,
-        controllerAs: "vm",
+        controllerAs: "ctrlVM",
         controller: Ctrl,
         targetEvent: event,
         template: require<string>("./Template.html"),
         locals: {
             field: field,
-            origin: origin
+            origin: origin,
+            event: event
         }
     }
 };
