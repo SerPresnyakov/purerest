@@ -15,6 +15,7 @@ export function getDialog($event: any, config: crud.iCrudTableConfig): ng.materi
         template: require<string>("./Template.html"),
         controller: Ctrl,
         controllerAs: "vm",
+        clickOutsideToClose: true,
         locals: {
             config: config
         },

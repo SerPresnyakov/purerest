@@ -1,6 +1,6 @@
 class Ctrl {
 
-    static $inject = ["field", "origin", "$http", "event"];
+    static $inject = ["field", "origin", "$http", "event", "rel"];
 
     selectedItem: any;
     searchText: string;
@@ -9,7 +9,8 @@ class Ctrl {
         public field: crud.iField,
         public origin: any,
         public $http: ng.IHttpService,
-        public $event: ng.IAngularEvent
+        public $event: ng.IAngularEvent,
+        public rel: crud.iRel
     ) {
         var alex = "1"
     }
@@ -18,7 +19,7 @@ class Ctrl {
 
         var asd = 1;
 
-        return this.$http.get(this.field.rel.dao, {
+        return this.$http.get(this.rel.dao, {
             params: {
                 filter: `name_like_${text}`
             }
@@ -28,7 +29,7 @@ class Ctrl {
 
 }
 
-export const getDialog = (event: ng.IAngularEvent, field: crud.iField, origin: any) => {
+export const getDialog = (event: ng.IAngularEvent, field: crud.iField, origin: any, rel: crud.iRel) => {
     return {
         bindToController: true,
         controllerAs: "ctrlVM",
@@ -38,7 +39,8 @@ export const getDialog = (event: ng.IAngularEvent, field: crud.iField, origin: a
         locals: {
             field: field,
             origin: origin,
-            event: event
+            event: event,
+            rel: rel
         }
     }
 };
