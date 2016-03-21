@@ -9,13 +9,13 @@ export class Helper {
 
         angular.forEach(fields, (f: TableField) => {
 
-            props[f.name] = {
+            let res = {
                 title: f.title
             };
 
-            if (f.fieldType instanceof ObjField) {
+            angular.extend(res, f.fieldType.toSchema());
 
-            }
+            props[f.name] = res;
 
             if (!f.nullable) {
                 required.push(f.name)

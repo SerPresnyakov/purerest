@@ -9,6 +9,12 @@ export class BoolField implements IBoolField {
 
     type = BoolField._type;
 
+    toSchema(): Object {
+        return {
+            type: this.type
+        }
+    }
+
     static map(v: Object): string[]|BoolField {
         return new BoolField()
     }

@@ -1,4 +1,5 @@
 import {CrudTableConfig} from "../CrudTableConfig";
+import {Helper} from "../Helper";
 
 class Ctrl {
 
@@ -9,7 +10,7 @@ class Ctrl {
 
     constructor(config: CrudTableConfig) {
 
-
+        this.schema = Helper.getSchema(config.fields)
 
     }
 

@@ -1,5 +1,6 @@
 export interface fieldType {
     type: string
+    toSchema(): Object
 }
 
 export class TableField {
