@@ -1,4 +1,6 @@
-interface IStrField extends crud.fieldType {
+import {fieldType} from "../TableField";
+
+interface IStrField extends fieldType {
     pattern: string
     minLength: string
     maxLength: string

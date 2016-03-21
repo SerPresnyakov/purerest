@@ -1,4 +1,4 @@
-import fieldType = crud.fieldType;
+import {fieldType} from "../TableField";
 
 interface IIntField extends fieldType {
     min?: number

@@ -1,3 +1,6 @@
+import {TableField} from "../TableField";
+import {TableRel} from "../TableRel";
+
 class Ctrl {
 
     static $inject = ["field", "origin", "$http", "event", "rel"];
@@ -6,11 +9,11 @@ class Ctrl {
     searchText: string;
 
     constructor(
-        public field: crud.iField,
+        public field: TableField,
         public origin: any,
         public $http: ng.IHttpService,
         public $event: ng.IAngularEvent,
-        public rel: crud.iRel
+        public rel: TableRel
     ) {
         var alex = "1"
     }
@@ -29,7 +32,7 @@ class Ctrl {
 
 }
 
-export const getDialog = (event: ng.IAngularEvent, field: crud.iField, origin: any, rel: crud.iRel) => {
+export const getDialog = (event: ng.IAngularEvent, field: TableField, origin: any, rel: TableRel) => {
     return {
         bindToController: true,
         controllerAs: "ctrlVM",

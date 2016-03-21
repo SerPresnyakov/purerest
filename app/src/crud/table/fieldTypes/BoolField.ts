@@ -1,4 +1,5 @@
-import fieldType = crud.fieldType;
+
+import {fieldType} from "../TableField";
 
 interface IBoolField extends fieldType {}
 
