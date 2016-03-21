@@ -1,28 +1,25 @@
 import iCrudTableConfig = crud.iCrudTableConfig;
+import {StrField} from "../crud/table/fieldTypes/StrField";
 
 //noinspection TypeScriptValidateTypes
 export const table: iCrudTableConfig = {
     sourceName: "Таблицы",
-    dao: {
-        url: "/pureRest/resource",
-        rights: {
-            insert: false,
-            update: true,
-            delete: false
-        }
-    },
-    fields: {
-        name: {
-            title: 'Название',
-            type: 'str'
-        },
-        tableName: {
-            title: 'Имя таблицы',
-            type: 'str'
-        },
-        url: {
-            title: 'URL',
-            type: 'str'
-        }
-    }
+    url: "/pureRest/resource",
+    fields: [{
+        name: "name",
+        title: 'Название',
+        fieldType: new StrField(),
+        nullable: false
+    },{
+        name: "tableName",
+        title: 'Имя таблицы',
+        fieldType: new StrField(),
+        nullable: false
+    },{
+        name: "url",
+        title: 'URL',
+        fieldType: new StrField(),
+        nullable: false
+    }],
+    rels: []
 };

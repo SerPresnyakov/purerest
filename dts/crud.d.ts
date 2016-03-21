@@ -1,15 +1,21 @@
 declare module crud {
 
     interface iRel {
+        name: string
         field: string
         dao: string
         type: "one" | "many"
+        displayField?: string
+    }
+
+    interface fieldType {
+        type: string
     }
 
     interface iField {
         name: string
         title: string
-        type: "num" | "str" | "bool"
+        fieldType: fieldType
         nullable: boolean
     }
 
