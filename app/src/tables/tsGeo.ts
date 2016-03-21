@@ -1,10 +1,10 @@
 import iCrudTableConfig = crud.iCrudTableConfig;
 
 //noinspection TypeScriptValidateTypes
-export const resourceTable: iCrudTableConfig = {
-    sourceName: "Таблицы",
+export const table: iCrudTableConfig = {
+    sourceName: "GEO",
     dao: {
-        url: "/api/direct/bannerGroup?token=1:god&include=region,brand",
+        url: "/pureRest/tsGeo",
         rights: {
             insert: false,
             update: true,

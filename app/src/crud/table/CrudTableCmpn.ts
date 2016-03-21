@@ -4,22 +4,29 @@ import {Page} from "../source/Page";
 import {Source} from "../source/Source";
 import iCrudTableConfig = crud.iCrudTableConfig;
 
-import {getDialog} from "./autocompleteDialog/Cmpn"
+import {getDialog as autocompleteDialog} from "./autocompleteDialog/Cmpn"
+import {getDialog as createDialog} from "./create/Cmpn"
+import {Templater} from "./Templater";
+import iRel = crud.iRel;
 
 class Ctrl {
 
-    static $inject = ["$injector"];
+    static $inject = ["$injector", "$mdEditDialog", "$mdDialog"];
 
-    $editDialog: mdTable.EditDialogService;
-
-    config: iCrudTableConfig;
+    config: CrudTableConfig;
 
     source: Source;
     pager: Pager;
 
-    constructor(inj: ng.auto.IInjectorService) {
-        this.$editDialog = inj.get<mdTable.EditDialogService>("$mdEditDialog");
-        this.source = new Source(this.config.sourceName, this.config.dao.url, inj);
+    constructor(
+        public inj: ng.auto.IInjectorService,
+        public $editDialog: mdTable.EditDialogService,
+        public $mdDialog: ng.material.IDialogService
+    ) {}
+
+    init(config: CrudTableConfig) {
+        this.config = config;
+        this.source = new Source(this.config.sourceName, this.config.url, this.inj);
         this.pager = new Pager(1, 15);
         this.refreshPage()
     }
@@ -28,14 +35,14 @@ class Ctrl {
 
         $event.stopPropagation();
 
-        let field: crud.Field  = this.config.fields[fieldName];
+        let field: crud.iField  = this.config.fields[fieldName];
+
+        let rel = this.config.getRel(fieldName);
 
         if (field) {
 
-            if (field.rel) {
-
-                this.$editDialog.show(getDialog($event, field, origin))
-
+            if (rel) {
+                this.$editDialog.show(autocompleteDialog($event, field, origin, rel))
             } else if (field.type == 'str') {
 
                 this.$editDialog.small({
@@ -53,8 +60,14 @@ class Ctrl {
             }
 
         } else {
-            console.warn(`Field '${fieldName}' not configured`)
+            console.error(`Field '${fieldName}' not configured`)
         }
+
+    }
+
+    create($event: ng.IAngularEvent) {
+
+        this.$mdDialog.show(createDialog($event, this.config))
 
     }
 
@@ -72,11 +85,39 @@ class Ctrl {
 
 }
 
-export const CrudTableCmpn: ng.IComponentOptions = {
-    bindings: {
-        config: "="
-    },
-    controller: Ctrl,
-    controllerAs: "vm",
-    template: require<string>("./TableTemplate.html")
-};
+interface CtrlScope extends ng.IScope {
+    config: iCrudTableConfig
+    tmpl: string
+}
+
+export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective {
+    return {
+        scope: {
+            config: "=",
+            tmpl: "="
+        },
+        controller: Ctrl,
+        controllerAs: "vm",
+        restrict: "E",
+        link: (scope: CtrlScope, elem: ng.IAugmentedJQuery, attrs: any, ctrl: Ctrl) => {
+
+            console.log("linking");
+
+            let templ = "not found";
+
+            let config = new CrudTableConfig(scope.config);
+
+            if (scope.tmpl == "adGroups") {
+                templ = require<string>("../../tables/AdgroupTemplate.html")
+            } else {
+                templ = new Templater(config, "vm").getTemplate()
+            }
+
+            elem.html(templ);
+            $compile(elem.contents())(scope);
+            ctrl.init(config)
+
+        }
+    }
+
+}

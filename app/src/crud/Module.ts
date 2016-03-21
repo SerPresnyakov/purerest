@@ -1,4 +1,4 @@
-import {CrudTableCmpn} from "./table/CrudTableCmpn"
+import {CrudTableDirective} from "./table/CrudTableCmpn"
 import {Deps} from "../Deps";
 
 const module = angular.module("restCrud", [
@@ -6,6 +6,6 @@ const module = angular.module("restCrud", [
     Deps.mdTable,
 ]);
 
-module.component("akCrudTable", CrudTableCmpn);
+module.directive("akCrudTable", ["$compile", ($compile => CrudTableDirective($compile))]);
 
 export default module.name

@@ -1,29 +1,23 @@
 declare module crud {
 
-    interface Field {
+    interface iRel {
+        field: string
+        dao: string
+        type: "one" | "many"
+    }
+
+    interface iField {
+        name: string
         title: string
-        type: "num" | "str" | "bool",
-        rel?: {
-            dao: string
-            displayField?: string
-        }
+        type: "num" | "str" | "bool"
+        nullable: boolean
     }
 
     interface iCrudTableConfig {
-
         sourceName: string
-
-        dao: {
-            url: string
-            rights: {
-                insert: boolean
-                update: boolean
-                delete: boolean
-            }
-        }
-
-        fields: { [name: string]: Field }
-
+        url: string
+        fields: iField[]
+        rels: iRel[]
     }
 
 }

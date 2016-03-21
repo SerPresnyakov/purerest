@@ -1,6 +1,8 @@
 <md-toolbar class="md-table-toolbar md-default">
     <div class="md-toolbar-tools">
-        <span>Группы объявлений</span>
+        <span>{{vm.config.sourceName}}</span>
+        <span flex></span>
+        <md-button class="md-raised md-primary" ng-click="vm.create()">Создать</md-button>
     </div>
 </md-toolbar>
 
