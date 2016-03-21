@@ -17,3 +17,7 @@ declare interface iRegister<T> {
     name: string
     config: T
 }
+
+interface Array<T> {
+    find(predicate: (search: T) => boolean) : T;
+}

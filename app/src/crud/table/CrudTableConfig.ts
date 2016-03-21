@@ -1,7 +1,7 @@
 import iRel = crud.iRel;
 import iField = crud.iField;
 
-class CrudTableConfig {
+export class CrudTableConfig {
 
     sourceName: string;
     url: string;
@@ -19,7 +19,7 @@ class CrudTableConfig {
     }
 
     getRel(fieldName: string): iRel {
-        return this.rels.find(r => r.field == fieldName)
+        return this.rels.find((r) => r.field == fieldName)
     }
 
 }

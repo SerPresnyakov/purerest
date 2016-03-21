@@ -1,3 +1,5 @@
+import {CrudTableConfig} from "./CrudTableConfig";
+
 export class Templater {
 
     constructor(
@@ -36,7 +38,7 @@ export class Templater {
 
     getThs(): string {
         let res = [];
-        angular.forEach(this.config.fields, (f, fieldName) => {
+        angular.forEach(this.config.fields, (f) => {
             res.push(`<th md-column>${f.title}</th>`)
         });
         return res.join("\n")
@@ -58,19 +60,24 @@ export class Templater {
             "</tbody>";
     }
 
-    getTds(item: string): string {
+    getTds(obj: string): string {
         let res = [];
-        angular.forEach(this.config.fields, (f, fieldName) => {
-            res.push(`<td md-cell>{{${item}.${fieldName}}}</td>`)
+        angular.forEach(this.config.fields, (f) => {
+            res.push(`<td md-cell>${this.getCell(obj, f)}</td>`)
         });
         return res.join("\n")
     }
 
-    getCell(f: crud.iField, fieldName: string) {
-        let rel = this.config.getRel(fieldName);
-        if (f.rel) {
+    getCell(obj: string, f: crud.iField): string {
+        let rel = this.config.getRel(f.name);
+        var res: string;
+        if (rel && rel.type == "one") {
+            res = `{{${obj}._relations.${rel.name}.${rel.displayField ? rel.displayField : "name"}}}`
+        } else {
 
+            res = `{{${obj}.${f.name}}}`
         }
+        return res
     }
 
 }

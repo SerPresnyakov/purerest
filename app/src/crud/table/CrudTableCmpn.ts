@@ -8,6 +8,8 @@ import {getDialog as autocompleteDialog} from "./autocompleteDialog/Cmpn"
 import {getDialog as createDialog} from "./create/Cmpn"
 import {Templater} from "./Templater";
 import iRel = crud.iRel;
+import {CrudTableConfig} from "./CrudTableConfig";
+import {StrField} from "./fieldTypes/StrField";
 
 class Ctrl {
 
@@ -43,7 +45,7 @@ class Ctrl {
 
             if (rel) {
                 this.$editDialog.show(autocompleteDialog($event, field, origin, rel))
-            } else if (field.type == 'str') {
+            } else if (field.fieldType instanceof StrField) {
 
                 this.$editDialog.small({
                     modelValue: origin[fieldName],

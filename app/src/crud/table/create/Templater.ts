@@ -1,7 +1,9 @@
+import {CrudTableConfig} from "../CrudTableConfig";
+
 export class Templater {
 
     constructor(
-        public config: crud.iCrudTableConfig
+        public config: CrudTableConfig
     ) {}
 
     getTemplate(): string {
