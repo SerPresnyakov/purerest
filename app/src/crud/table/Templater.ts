@@ -1,4 +1,5 @@
 import {CrudTableConfig} from "./CrudTableConfig";
+import {TableField} from "./TableField";
 
 export class Templater {
 
@@ -19,7 +20,7 @@ export class Templater {
                 '<div class="md-toolbar-tools">' +
                     `<span>${this.config.sourceName}</span>` +
                     '<span flex></span>' +
-                    `<md-button class="md-raised md-primary" ng-click="${this.ctrlAs}">Создать</md-button>` +
+                    `<md-button class="md-raised md-primary" ng-click="${this.ctrlAs}.create()">Создать</md-button>` +
                 '</div>' +
             '</md-toolbar>'
     }
@@ -68,7 +69,7 @@ export class Templater {
         return res.join("\n")
     }
 
-    getCell(obj: string, f: crud.iField): string {
+    getCell(obj: string, f: TableField): string {
         let rel = this.config.getRel(f.name);
         var res: string;
         if (rel && rel.type == "one") {

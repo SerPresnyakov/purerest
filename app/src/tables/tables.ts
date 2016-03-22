@@ -1,11 +1,8 @@
-import iCrudTableConfig = crud.iCrudTableConfig;
 import {StrField} from "../crud/table/fieldTypes/StrField";
+import {CrudTableConfig} from "../crud/table/CrudTableConfig";
 
-//noinspection TypeScriptValidateTypes
-export const table: iCrudTableConfig = {
-    sourceName: "Таблицы",
-    url: "/pureRest/resource",
-    fields: [{
+export const table: CrudTableConfig = new CrudTableConfig("Таблицы", "/pureRest/resource")
+    .setFields([{
         name: "name",
         title: 'Название',
         fieldType: new StrField(),
@@ -20,6 +17,4 @@ export const table: iCrudTableConfig = {
         title: 'URL',
         fieldType: new StrField(),
         nullable: false
-    }],
-    rels: []
-};
+    }]);

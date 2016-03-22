@@ -1,8 +1,8 @@
 import {indexState} from "./index/State"
-import iCrudTableConfig = crud.iCrudTableConfig;
 
 import {table as adGroupTable} from "./tables/adGroups"
 import {table as tables} from "./tables/tables"
+import {CrudTableConfig} from "./crud/table/CrudTableConfig";
 
 export const states: iRegister<ng.ui.IState>[] = [
     indexState,
@@ -15,7 +15,7 @@ export const states: iRegister<ng.ui.IState>[] = [
                 s['config'] = config
             }],
             resolve: {
-                config: (): iCrudTableConfig => adGroupTable
+                config: (): CrudTableConfig => adGroupTable
             }
         }
     },
@@ -28,7 +28,7 @@ export const states: iRegister<ng.ui.IState>[] = [
                 s['config'] = config
             }],
             resolve: {
-                config: (): iCrudTableConfig => adGroupTable
+                config: (): CrudTableConfig => adGroupTable
             }
         }
     },
@@ -41,7 +41,7 @@ export const states: iRegister<ng.ui.IState>[] = [
                 s['config'] = config
             }],
             resolve: {
-                config: (): iCrudTableConfig => tables
+                config: (): CrudTableConfig => tables
             }
         }
     },

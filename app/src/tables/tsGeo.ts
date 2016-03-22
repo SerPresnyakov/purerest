@@ -1,20 +1,22 @@
-import iCrudTableConfig = crud.iCrudTableConfig;
-
 //noinspection TypeScriptValidateTypes
-export const table: iCrudTableConfig = {
-    sourceName: "GEO",
-    url: "/pureRest/tsGeo",
-    fields: [
-        {
-            name: "brandId",
-            title: "Бренд",
-            type: "num",
-        },
-        {
-            name: "model",
-            title: "Модель",
-            type: "str"
-        }
-    ],
-    rels: []
-};
+import {CrudTableConfig} from "../crud/table/CrudTableConfig";
+import {IntField} from "../crud/table/fieldTypes/IntField";
+import {StrField} from "../crud/table/fieldTypes/StrField";
+import {TableField} from "../crud/table/TableField";
+
+export const table: CrudTableConfig =
+    new CrudTableConfig("GEO", "/pureRest/tsGeo")
+        .setFields([
+            {
+                name: "brandId",
+                title: "Бренд",
+                fieldType: new IntField(),
+                nullable: false
+            },
+            {
+                name: "model",
+                title: "Модель",
+                fieldType: new StrField(),
+                nullable: false
+            }
+        ]);

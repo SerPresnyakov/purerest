@@ -1,14 +1,22 @@
+import {CrudTableConfig} from "../CrudTableConfig";
+import {Helper} from "../Helper";
+
 class Ctrl {
 
     static $inject = ["config"];
 
-    constructor() {
+    schema: any;
+    form = ["*"];
+
+    constructor(config: CrudTableConfig) {
+
+        this.schema = Helper.getSchema(config.fields)
 
     }
 
 }
 
-export function getDialog($event: any, config: crud.iCrudTableConfig): ng.material.IDialogOptions {
+export function getDialog($event: any, config: CrudTableConfig): ng.material.IDialogOptions {
     var parentEl = angular.element(document.body);
     return {
         parent: parentEl,

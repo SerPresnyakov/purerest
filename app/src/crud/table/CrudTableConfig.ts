@@ -1,25 +1,31 @@
-import iRel = crud.iRel;
-import iField = crud.iField;
+import {TableField} from "./TableField";
+import {TableRel} from "./TableRel";
+import {ObjField} from "./fieldTypes/ObjField";
 
 export class CrudTableConfig {
 
-    sourceName: string;
-    url: string;
-    fields: iField[];
-    rels: iRel[];
+    fields: TableField[] = [];
+    rels: TableRel[] = [];
 
-    //TODO: need validation for 'config' object
-    constructor(config: crud.iCrudTableConfig) {
+    constructor(
+        public sourceName: string,
+        public url: string
+    ) {}
 
-        this.sourceName = config.sourceName;
-        this.fields = config.fields;
-        this.rels = config.rels;
-        this.url = config.url;
-
+    setFields(fields: TableField[]): CrudTableConfig {
+        this.fields = fields;
+        return this;
     }
 
-    getRel(fieldName: string): iRel {
+    setRels(rels: TableRel[]): CrudTableConfig {
+        this.rels = rels;
+        return this
+    }
+
+    getRel(fieldName: string): TableRel {
         return this.rels.find((r) => r.field == fieldName)
     }
+
+
 
 }

@@ -1,4 +1,6 @@
-interface IStrField extends crud.fieldType {
+import {fieldType} from "../TableField";
+
+interface IStrField extends fieldType {
     pattern: string
     minLength: string
     maxLength: string
@@ -16,6 +18,14 @@ export class StrField implements IStrField {
             v['minLength'],
             v['maxLength']
         )
+    }
+
+    toSchema(): Object {
+        let res = {type: "string"};
+        if (this.pattern != null) res['pattern'] = this.pattern;
+        if (this.minLength != null) res['minLength'] = this.minLength;
+        if (this.maxLength != null) res['maxLength'] = this.maxLength;
+        return res
     }
 
     constructor(
