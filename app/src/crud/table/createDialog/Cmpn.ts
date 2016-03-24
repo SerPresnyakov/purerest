@@ -13,6 +13,7 @@ class Ctrl {
         this.schema = Helper.getSchema(config.fields)
 
     }
+    lol = 1;
 
 }
 

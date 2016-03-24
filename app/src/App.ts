@@ -1,16 +1,20 @@
-
 import {Deps} from "./Deps";
 import {Config} from "./Config";
 import {Run} from "./Run";
 import {states} from "./States";
 import CrudModule from "./crud/Module"
+import {AngularModule} from "./common/AngularModule";
+import AuthModule from "./auth/Module"
 
-const module = angular.module("app", [
+const module = new AngularModule("app", [
     Deps.uiRouter,
-    CrudModule
+    Deps.localStorage,
+    CrudModule,
+    AuthModule,
+    Deps.formly
 ]);
 
-Config.registerStates(module.name, states);
+module.registerStates(states);
 
 module.run(Run);
 

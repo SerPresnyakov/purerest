@@ -1,5 +1,7 @@
 import {Page} from "./Page";
 
+
+
 interface iPageResponse {
     data: any[]
     items: number
@@ -80,24 +82,15 @@ export class Source {
     //
     //}
     //
-    //patch(id: number, doc: P): ng.IPromise<boolean> {
-    //    let result = this.$q.defer<boolean>();
-    //    this.$http.patch(`${this.restUrl}/${id}`, doc)
-    //        .then((res: ng.IHttpPromiseCallbackArg<boolean>) => {
-    //            if (res.data) {
-    //                this.toastr.info("Обновлено", `${this.sourceName}`);
-    //                result.resolve(res.data);
-    //            } else {
-    //                this.toastr.error("Не могу обновить", `${this.sourceName}`);
-    //                result.reject("Запись не обновлена")
-    //            }
-    //        })
-    //        .catch((err) => {
-    //            this.toastr.error('Не могу обновить', `${this.sourceName}`);
-    //            result.reject(err.data)
-    //        });
-    //
-    //    return result.promise
-    //}
+    patch(id: number, doc: any): ng.IPromise<boolean> {
+        let result = this.$q.defer<boolean>();
+        this.$http.patch(`${this.restUrl}/${id}`, doc)
+            .then((res: ng.IHttpPromiseCallbackArg<boolean>) => {
+            })
+            .catch((err) => {
+                result.reject(err.data)
+            });
+        return result.promise
+    }
 
 }

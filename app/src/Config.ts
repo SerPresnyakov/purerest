@@ -2,7 +2,7 @@ import {indexState} from "./index/State"
 
 export class Config {
 
-    static registerStates(moduleName: string, states: iRegister<ng.ui.IState>[]) {
+    static registerStates(moduleName: string, states: IRegisterMeta<ng.ui.IState>[]) {
         angular.module(moduleName).config(["$stateProvider", ($state) => {
             angular.forEach(states, (s) => {
                 $state.state(s.name, s.config);

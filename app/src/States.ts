@@ -3,9 +3,10 @@ import {indexState} from "./index/State"
 import {table as adGroupTable} from "./tables/adGroups"
 import {table as tables} from "./tables/tables"
 import {CrudTableConfig} from "./crud/table/CrudTableConfig";
-
-export const states: iRegister<ng.ui.IState>[] = [
+import {loginState} from "./auth/login/loginState";
+export const states: IRegisterMeta<ng.ui.IState>[] = [
     indexState,
+    loginState,
     {
         name: "index.adGroups",
         config: {
@@ -45,4 +46,5 @@ export const states: iRegister<ng.ui.IState>[] = [
             }
         }
     },
+
 ];

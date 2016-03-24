@@ -13,7 +13,7 @@ declare type modalMode = "create" | "update"
 
 declare type schemaFormFactory = (mode: modalMode) => iSchemaForm
 
-declare interface iRegister<T> {
+declare interface IRegisterMeta<T> {
     name: string
     config: T
 }

@@ -3,7 +3,7 @@ import {TableRel} from "../TableRel";
 
 class Ctrl {
 
-    static $inject = ["field", "origin", "$http", "event", "rel"];
+    static $inject = ["field", "origin", "$http", "event", "rel","mdDialog","source"];
 
     selectedItem: any;
     searchText: string;
@@ -13,37 +13,47 @@ class Ctrl {
         public origin: any,
         public $http: ng.IHttpService,
         public $event: ng.IAngularEvent,
-        public rel: TableRel
+        public rel: TableRel,
+        public mdDialog:any,
+        public source:any,
+        inj: ng.auto.IInjectorService
     ) {
-        var alex = "1"
     }
 
     querySearch(text: string): ng.IPromise<any[]> {
 
-        var asd = 1;
-
         return this.$http.get(this.rel.dao, {
             params: {
-                filter: `name_like_${text}`
+                filter: `name_like_${text}`,
+                token: `1:god`
             }
-        }).then((res: any) => res.data)
-
+        }).then((res: any) => res.data.data);
     }
 
+    finish($event){
+        this.origin[this.field.name] = this.selectedItem.id;
+        this.source.patch(this.origin.id,this.origin);
+        this.source.getOne(this.origin).then((res)=>console.log(res.data));
+        this.mdDialog.hide();
+    }
 }
 
-export const getDialog = (event: ng.IAngularEvent, field: TableField, origin: any, rel: TableRel) => {
+export const getDialog = (event: any, field: TableField, origin: any, rel: TableRel , mdDialog, source): ng.material.IDialogOptions => {
+    var parentEl = angular.element(document.body);
     return {
-        bindToController: true,
         controllerAs: "ctrlVM",
+        parent: parentEl,
         controller: Ctrl,
         targetEvent: event,
         template: require<string>("./Template.html"),
+        clickOutsideToClose:true,
         locals: {
             field: field,
             origin: origin,
             event: event,
-            rel: rel
+            rel: rel,
+            mdDialog:mdDialog,
+            source:source
         }
     }
 };

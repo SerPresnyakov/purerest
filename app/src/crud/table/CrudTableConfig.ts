@@ -23,9 +23,12 @@ export class CrudTableConfig {
     }
 
     getRel(fieldName: string): TableRel {
-        return this.rels.find((r) => r.field == fieldName)
+        return this.rels.find((r) => r.name == fieldName)
     }
 
+    getField(fieldName: string): TableField {
+        return this.fields.find((r) => r.name == fieldName)
+    }
 
 
 }

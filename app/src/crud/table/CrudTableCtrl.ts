@@ -34,15 +34,14 @@ export class CrudTableCtrl {
     editProp($event: ng.IAngularEvent, origin: any, fieldName: string) {
 
         $event.stopPropagation();
-
-        let field: TableField  = this.config.fields[fieldName];
+        let field: TableField  = this.config.getField(fieldName);
 
         let rel = this.config.getRel(fieldName);
 
         if (field) {
 
             if (rel) {
-                this.$editDialog.show(autocompleteDialog($event, field, origin, rel))
+                this.$mdDialog.show(autocompleteDialog($event, field, origin, rel, this.$mdDialog, this.source))
             } else if (field.fieldType instanceof StrField) {
 
                 this.$editDialog.small({
