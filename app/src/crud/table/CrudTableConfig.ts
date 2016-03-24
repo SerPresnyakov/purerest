@@ -30,5 +30,11 @@ export class CrudTableConfig {
         return this.fields.find((r) => r.name == fieldName)
     }
 
+    getIncludes(){
+        let res=[];
+        this.rels.forEach((r)=> res.push(r.field));
+        return res;
+    }
+
 
 }

@@ -1,4 +1,5 @@
 import IState = ng.ui.IState
+import {Ctrl} from "./../crud/table/createDialog/Ctrl";
 
 function isTokenForm(t: string): boolean {
   return t.match(/^\d+:.*/) != null
@@ -6,13 +7,12 @@ function isTokenForm(t: string): boolean {
 
 export class Run {
 
-  static $inject = ["$state", "$rootScope", "localStorageService", "$http", "formlyConfig"];
+  static $inject = ["$state", "$rootScope", "localStorageService", "$http"];
 
   constructor($state:ng.ui.IStateService,
               $rootScope:ng.IRootScopeService,
               localStorage:ng.local.storage.ILocalStorageService,
-              $http:ng.IHttpProvider,
-              formlyConfig) {
+              $http:ng.IHttpProvider) {
 
     let token = localStorage.get<string>("token");
 
@@ -39,24 +39,5 @@ export class Run {
     });
 
 
-
-    formlyConfig.setType({
-        name: 'input',
-        template: '<input ng-model="model[options.key]">'
-    });
-
-
-
-    formlyConfig.setWrapper({
-        name: 'mdLabel',
-        types: ['input'],
-        template: '<label>{{to.label}}</label><formly-transclude></formly-transclude>'
-    });
-
-    formlyConfig.setWrapper({
-        name: 'mdInputContainer',
-        types: ['input'],
-        template: '<md-input-container class="md-block"><formly-transclude></formly-transclude></md-input-container>'
-    });
   }
 }

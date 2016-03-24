@@ -1,9 +1,11 @@
 import {TableField} from "../TableField";
 import {fieldType} from "../TableField";
 import {Helper} from "../Helper";
+import {TableRel} from "../TableRel";
 
 export interface IObjField extends fieldType {
     fields: TableField[]
+    rels: TableRel[]
 }
 
 export class ObjField implements IObjField {
@@ -13,17 +15,18 @@ export class ObjField implements IObjField {
     type = ObjField._type;
 
     toSchema(): Object {
-        return Helper.getSchema(this.fields)
+        return Helper.getSchema(this.fields,this.rels)
     }
 
-    static map(v: Object): string[]|ObjField {
-        return new ObjField(
-            v['schema']
-        )
-    }
+    //static map(v: Object): string[]|ObjField {
+    //    return new ObjField(
+    //        v['schema']
+    //    )
+    //}
 
     constructor(
-        public fields: TableField[]
+        public fields: TableField[],
+        public rels: TableRel[]
     ) {}
 
 }

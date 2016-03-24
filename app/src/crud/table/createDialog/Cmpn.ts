@@ -6,14 +6,14 @@ class Ctrl {
     static $inject = ["config"];
 
     schema: any;
-    form = ["*"];
+    from: string;
+    res:any;
 
-    constructor(config: CrudTableConfig) {
+    constructor(public config: CrudTableConfig) {
 
-        this.schema = Helper.getSchema(config.fields)
+        this.schema = Helper.getSchema(config.fields,config.rels)
 
     }
-    lol = 1;
 
 }
 

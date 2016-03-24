@@ -6,15 +6,18 @@ export const table: CrudTableConfig = new CrudTableConfig("Таблицы", "/pu
         name: "name",
         title: 'Название',
         fieldType: new StrField(),
-        nullable: false
+        nullable: false,
+        formly:"input"
     },{
         name: "tableName",
         title: 'Имя таблицы',
         fieldType: new StrField(),
-        nullable: false
+        nullable: false,
+        formly:"input"
     },{
         name: "url",
         title: 'URL',
         fieldType: new StrField(),
-        nullable: false
+        nullable: false,
+        formly:"input"
     }]);

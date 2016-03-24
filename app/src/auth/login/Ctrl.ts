@@ -21,21 +21,21 @@ export class LoginCtrl {
     options = {};
 
     fields = [
-    {
-        key: 'email',
-        type: 'input',
-        templateOptions: {
-            label: 'Логин'
+        {
+            key: 'email',
+            type: 'input',
+            templateOptions: {
+                label: 'Логин'
+            }
+        },
+        {
+            key: 'password',
+            type: 'input',
+            templateOptions: {
+                label: 'Пароль'
+            }
         }
-    },
-    {
-        key: 'password',
-        type: 'input',
-        templateOptions: {
-        label: 'Пароль'
-        }
-    }
-];
+    ];
 
     login() {
 

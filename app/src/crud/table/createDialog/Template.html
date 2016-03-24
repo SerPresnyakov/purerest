@@ -1,11 +1,19 @@
-<md-dialog>
-    <md-dialog-content>
-        <div class="md-dialog-content" >
-            <h1 class="md-title">Создание</h1>
-            <form name="modelForm" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.model"></form>
+<div layout="column" flex role="main" style="height: 100%;">
+    <md-content layout="vertical" flex style="height: 100%;">
+        <div layout="row" layout-align="center center" layout-fill style="height: 100%;">
+            <md-whiteframe class="md-whiteframe-z1" layout="column" flex layout-padding >
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <span>Создать</span>
+                    </div>
+                </md-toolbar>
+                <form ng-submit="vm.login()" name="vm.form" novalidate>
+                    <formly-form model="vm.res" fields="vm.schema" options="vm.options" form="vm.form">
+                        <md-button type="submit" class="md-raised md-primary" ng-disabled="vm.form.$invalid">Submit</md-button>
+                        <md-button type="button" class="md-raised" ng-click="vm.options.resetModel()">Reset</md-button>
+                    </formly-form>
+                </form>
+            </md-whiteframe>
         </div>
-    </md-dialog-content>
-    <md-dialog-actions>
-
-    </md-dialog-actions>
-</md-dialog>
+    </md-content>
+</div>

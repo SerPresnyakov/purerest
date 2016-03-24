@@ -1,5 +1,6 @@
 import {TableField} from "../TableField";
 import {TableRel} from "../TableRel";
+import {Helper} from "../../../common/Helper";
 
 class Ctrl {
 
@@ -32,8 +33,13 @@ class Ctrl {
 
     finish($event){
         this.origin[this.field.name] = this.selectedItem.id;
-        this.source.patch(this.origin.id,this.origin);
-        this.source.getOne(this.origin).then((res)=>console.log(res.data));
+        let res = {};
+        res[this.field.name]=this.selectedItem.id;
+        this.source.patch(this.origin.id,res);
+        this.source.getOne(this.origin.id)
+            .then((res)=>{
+                Helper.assignegValueOfObjElement(res, this.origin);
+            });
         this.mdDialog.hide();
     }
 }

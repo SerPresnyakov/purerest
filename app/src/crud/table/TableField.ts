@@ -9,7 +9,9 @@ export class TableField {
         public name: string,
         public title: string,
         public fieldType: fieldType,
-        public nullable: boolean
+        public nullable: boolean,
+        public formly:string
+
     ) {}
 
 }

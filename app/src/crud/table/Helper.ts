@@ -1,34 +1,35 @@
 import {TableField} from "./TableField";
 import {ObjField} from "./fieldTypes/ObjField";
+import {TableRel} from "./TableRel";
 
 export class Helper {
 
-    static getSchema(fields: TableField[]): Object {
-        var props = {};
-        var required: string[] = [];
+    static getSchema(fields,rels): Object {
+
+        var schema = [];
+
 
         angular.forEach(fields, (f: TableField) => {
 
             let res = {
-                title: f.title
+                key: f.name,
+                type: f.formly,
+                templateOptions: {
+                    label: f.title
+                }
             };
-
-            angular.extend(res, f.fieldType.toSchema());
-
-            props[f.name] = res;
-
-            if (!f.nullable) {
-                required.push(f.name)
+            if(f.formly=="autocomplete"){
+                res["data"]  = {};
+                angular.forEach(rels,(r:TableRel) => {
+                    if(r.name == f.name){
+                        res["data"]["dao"]= r.dao;
+                    }
+                });
             }
+            schema.push(res);
         });
 
-        return {
-            type: "object",
-            properties: props,
-            required: required
-        }
-
-
+        return schema;
     }
 
 }
