@@ -15,7 +15,7 @@ class Ctrl {
         this.schema = Helper.getSchema(config.fields, config.rels, config.rest);
         this.url = config.url;
         console.log(this.url);
-        this.$http.get("api/left").then((res) => console.log(res))
+        this.$http.get("left/pricelab/shop?filter=clientId_eqN_1&page=1&per=10").then((res) => console.log(res))
     }
 
     submit(){
