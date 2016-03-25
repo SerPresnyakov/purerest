@@ -18,7 +18,6 @@ export const table: CrudTableConfig =
             fieldType: new StrField(),
             nullable: false,
             formly:"input"
-
         }, {
             name: "brandId",
             title: "Бренд",

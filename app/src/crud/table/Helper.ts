@@ -4,7 +4,7 @@ import {TableRel} from "./TableRel";
 
 export class Helper {
 
-    static getSchema(fields,rels): Object {
+    static getSchema(fields,rels,rest): Object {
 
         var schema = [];
 
@@ -22,10 +22,16 @@ export class Helper {
                 res["data"]  = {};
                 angular.forEach(rels,(r:TableRel) => {
                     if(r.name == f.name){
+                        res["data"]["rest"]= rest;
                         res["data"]["dao"]= r.dao;
                     }
                 });
             }
+
+            if(!f.nullable){
+                res.templateOptions["required"] = true;
+            }
+
             schema.push(res);
         });
 

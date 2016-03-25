@@ -11,7 +11,8 @@ const module = new AngularModule("app", [
     Deps.localStorage,
     CrudModule,
     AuthModule,
-    Deps.formly
+    Deps.formly,
+    Deps.restangular
 ]);
 
 module.registerStates(states);

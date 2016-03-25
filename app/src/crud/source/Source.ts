@@ -16,6 +16,7 @@ export class Source {
     $http: ng.IHttpService;
     $q: ng.IQService;
     localStorage:ng.local.storage.ILocalStorageService;
+    Restangular;
     token;
 
     constructor(
@@ -27,6 +28,7 @@ export class Source {
         this.$http = inj.get<ng.IHttpService>("$http");
         this.$q = inj.get<ng.IQService>("$q");
         this.localStorage = inj.get<ng.local.storage.ILocalStorageService>("localStorageService");
+        this.Restangular = inj.get("Restangular");
         this.token = this.localStorage.get<string>("token");
 
     }

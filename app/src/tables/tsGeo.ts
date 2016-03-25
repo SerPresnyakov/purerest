@@ -11,12 +11,14 @@ export const table: CrudTableConfig =
                 name: "brandId",
                 title: "Бренд",
                 fieldType: new IntField(),
-                nullable: false
+                nullable: false,
+                formly: "input"
             },
             {
                 name: "model",
                 title: "Модель",
                 fieldType: new StrField(),
-                nullable: false
+                nullable: false,
+                formly: "input"
             }
         ]);

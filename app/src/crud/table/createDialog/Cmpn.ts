@@ -3,16 +3,23 @@ import {Helper} from "../Helper";
 
 class Ctrl {
 
-    static $inject = ["config"];
+    static $inject = [ "config", "$http" ];
 
     schema: any;
     from: string;
     res:any;
+    url;
 
-    constructor(public config: CrudTableConfig) {
+    constructor(public config: CrudTableConfig, public $http:ng.IHttpService) {
 
-        this.schema = Helper.getSchema(config.fields,config.rels)
+        this.schema = Helper.getSchema(config.fields, config.rels, config.rest);
+        this.url = config.url;
+        console.log(this.url);
+        this.$http.get("api/left").then((res) => console.log(res))
+    }
 
+    submit(){
+        return this.$http.post(this.url,this.res,{params:{token:"1:god"}})
     }
 
 }

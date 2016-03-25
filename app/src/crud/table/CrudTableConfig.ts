@@ -6,11 +6,14 @@ export class CrudTableConfig {
 
     fields: TableField[] = [];
     rels: TableRel[] = [];
+    rest;
 
     constructor(
         public sourceName: string,
         public url: string
-    ) {}
+    ) {
+    }
+
 
     setFields(fields: TableField[]): CrudTableConfig {
         this.fields = fields;

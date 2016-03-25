@@ -7,4 +7,5 @@ export class Deps {
   static formly = "formly";
   static angularFormly = "angular-formly";
   static apiCheck = "apiCheck";
+  static restangular = "restangular";
 }

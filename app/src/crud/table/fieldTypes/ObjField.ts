@@ -6,6 +6,7 @@ import {TableRel} from "../TableRel";
 export interface IObjField extends fieldType {
     fields: TableField[]
     rels: TableRel[]
+    rest
 }
 
 export class ObjField implements IObjField {
@@ -15,7 +16,7 @@ export class ObjField implements IObjField {
     type = ObjField._type;
 
     toSchema(): Object {
-        return Helper.getSchema(this.fields,this.rels)
+        return Helper.getSchema(this.fields,this.rels, this.rest)
     }
 
     //static map(v: Object): string[]|ObjField {
@@ -26,7 +27,8 @@ export class ObjField implements IObjField {
 
     constructor(
         public fields: TableField[],
-        public rels: TableRel[]
+        public rels: TableRel[],
+        public rest
     ) {}
 
 }

@@ -11,7 +11,7 @@ import {TableField} from "./TableField";
 
 export class CrudTableCtrl {
 
-    static $inject = ["$injector", "$mdEditDialog", "$mdDialog"];
+    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "Restangular"];
 
     config: CrudTableConfig;
 
@@ -21,12 +21,14 @@ export class CrudTableCtrl {
     constructor(
         public inj: ng.auto.IInjectorService,
         public $editDialog: mdTable.EditDialogService,
-        public $mdDialog: ng.material.IDialogService
+        public $mdDialog: ng.material.IDialogService,
+        private restangular: restangular.IService
     ) {}
 
     init(config: CrudTableConfig) {
         this.config = config;
-        this.source = new Source(this.config.sourceName, this.config.url, this.inj,this.config.getIncludes());
+        this.config.rest= this.restangular;
+        this.source = new Source(this.config.sourceName, this.config.url, this.inj, this.config.getIncludes());
         this.pager = new Pager(1, 15);
         this.refreshPage()
     }
