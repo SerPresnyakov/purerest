@@ -12,9 +12,9 @@ export class Ctrl {
         public rest: restangular.IService
 
     ) {
-        if(scope.model[scope.options.key]){
-            scope.searchText = scope.model._relations[scope.options.data.rels].name;
-        }
+        console.log(scope.model);
+        //console.log(scope.options.data.dao);
+        //console.log(scope.options.data.rest);
         scope.querySearch = (text: string) => {
             return this.$http.get(scope.options.data.dao, {
                 params: {

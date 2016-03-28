@@ -4,6 +4,8 @@ import {Pager} from "../source/Pager";
 
 import {getDialog as autocompleteDialog} from "./autocompleteDialog/Cmpn"
 import {getDialog as createDialog} from "./createDialog/Cmpn"
+import {getDialog as deleteDialog} from "./deleteDialog/Cmpn"
+import {getDialog as editDialog} from "./editDialog/Cmpn"
 
 import {StrField} from "./fieldTypes/StrField";
 import {Page} from "../source/Page";
@@ -11,7 +13,7 @@ import {TableField} from "./TableField";
 
 export class CrudTableCtrl {
 
-    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "Restangular"];
+    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "Restangular", "$http"];
 
     config: CrudTableConfig;
 
@@ -22,7 +24,8 @@ export class CrudTableCtrl {
         public inj: ng.auto.IInjectorService,
         public $editDialog: mdTable.EditDialogService,
         public $mdDialog: ng.material.IDialogService,
-        private restangular: restangular.IService
+        private restangular: restangular.IService,
+        private $http:ng.IHttpService
     ) {}
 
     init(config: CrudTableConfig) {
@@ -30,7 +33,7 @@ export class CrudTableCtrl {
         this.config.rest= this.restangular;
         this.source = new Source(this.config.sourceName, this.config.url, this.inj, this.config.getIncludes());
         this.pager = new Pager(1, 15);
-        this.refreshPage()
+        this.refreshPage();
     }
 
     editProp($event: ng.IAngularEvent, origin: any, fieldName: string) {
@@ -68,9 +71,27 @@ export class CrudTableCtrl {
 
     create($event: ng.IAngularEvent) {
 
-        this.$mdDialog.show(createDialog($event, this.config))
+        this.$mdDialog.show(createDialog($event, this.config)).then((res)=>this.refreshPage())
 
     }
+
+    edit(item) {
+        let field;
+        let rels;
+        this.$mdDialog.show(editDialog(this.config,item,this.source)).then((res)=>this.refreshPage())
+    };
+
+    delete(item) {
+        this.$mdDialog.show(deleteDialog(this.$mdDialog,item.name)).then((res)=> {
+            this.source.remove(item.id)
+                .then((res)=> {
+                    if (res) {
+                        this.$mdDialog.hide();
+                        this.refreshPage()
+                    }
+                });
+        });
+    };
 
     refreshPage(): void {
         this.source.getPage(new Page().setPage(this.pager.page, this.pager.per))

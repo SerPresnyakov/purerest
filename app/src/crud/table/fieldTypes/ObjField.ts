@@ -16,7 +16,7 @@ export class ObjField implements IObjField {
     type = ObjField._type;
 
     toSchema(): Object {
-        return Helper.getSchema(this.fields,this.rels, this.rest)
+        return Helper.getSchema(this.fields, this.rels, this.rest)
     }
 
     //static map(v: Object): string[]|ObjField {

@@ -24,6 +24,7 @@ export class Helper {
                     if(r.name == f.name){
                         res["data"]["rest"]= rest;
                         res["data"]["dao"]= r.dao;
+                        res["data"]["rels"] = r.field;
                     }
                 });
             }

@@ -29,7 +29,13 @@ export class Source {
         this.$q = inj.get<ng.IQService>("$q");
         this.localStorage = inj.get<ng.local.storage.ILocalStorageService>("localStorageService");
         this.Restangular = inj.get("Restangular");
-        this.token = this.localStorage.get<string>("token");
+        if(restUrl != "/left/client"){
+            this.token = this.localStorage.get<string>("token");
+        }
+        else{
+            this.token = "1:6273543320";
+        }
+
 
     }
 
@@ -38,7 +44,7 @@ export class Source {
         let params = page;
         if (this.include != null) params["include"] = this.include.join(',');
         this.$http
-            .get(this.restUrl, {params: params})
+            .get(this.restUrl, {params: params, headers:{token:this.token}})
             .then((res: ng.IHttpPromiseCallbackArg<iPageResponse>) => result.resolve(res.data))
             .catch((err) => { console.error(err); result.reject(err.data); });
 
@@ -56,7 +62,6 @@ export class Source {
             .get(`${this.restUrl}/${id}`,{params: params})
             .then((res) => res.data)
     }
-
     //create(doc: M): ng.IPromise<number> {
     //    let result = this.$q.defer<number>();
     //
@@ -72,31 +77,33 @@ export class Source {
     //    return result.promise
     //}
     //
-    //remove(id: number): ng.IPromise<boolean> {
-    //
-    //    let result = this.$q.defer<boolean>();
-    //
-    //    this.$http
-    //        .delete(`${this.restUrl}/${id}`)
-    //        .then((res: ng.IHttpPromiseCallbackArg<boolean>) => {
-    //            if (res.data) { this.toastr.info("Удалено", `${this.sourceName}`); }
-    //            result.resolve(res.data);
-    //        })
-    //        .catch((err: ng.IHttpPromiseCallbackArg<string>) => {
-    //            this.toastr.error('Не могу удалить запись. ' + err.data, `${this.sourceName}`);
-    //            result.reject(err.data)
-    //        });
-    //
-    //    return result.promise
-    //
-    //}
-    //
+    remove(id: number): ng.IPromise<boolean> {
+
+        let result = this.$q.defer<boolean>();
+        this.$http
+            .delete(`${this.restUrl}/${id}`,{
+                headers: {
+                    token: this.token
+                }
+            })
+            .then((res: ng.IHttpPromiseCallbackArg<boolean>) => {
+                result.resolve(res.data);
+            })
+            .catch((err: ng.IHttpPromiseCallbackArg<string>) => {
+                result.reject(err.data)
+            });
+
+        return result.promise
+
+    }
+
     patch(id: number, doc: any): ng.IPromise<boolean> {
         let result = this.$q.defer<boolean>();
         this.$http.patch(`${this.restUrl}/${id}`, doc, {headers: {
             token: this.token
         }})
             .then((res: ng.IHttpPromiseCallbackArg<boolean>) => {
+                result.resolve(res.data);
             })
             .catch((err) => {
                 result.reject(err.data)

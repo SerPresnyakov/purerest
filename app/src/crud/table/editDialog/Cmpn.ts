@@ -4,39 +4,33 @@ import IDialogService = angular.material.IDialogService;
 
 class Ctrl {
 
-    static $inject = [ "config", "$http", "$mdDialog" ];
+    static $inject = [ "config", "original", "source" , "$http", "$mdDialog" ];
 
     schema: any;
     from: string;
     res:any;
     url;
 
-    constructor(public config: CrudTableConfig, public $http:ng.IHttpService, public $mdDialog:IDialogService) {
+    constructor(public config: CrudTableConfig,public original , public source, public $http:ng.IHttpService, public $mdDialog:IDialogService) {
 
         this.schema = Helper.getSchema(config.fields, config.rels, config.rest);
         this.url = config.url;
-        console.log(this.url);
-        this.$http.get("left/client?page=1&per=15",{
-            headers: {
-                token: `1:6273543320`
-            }
-        }).then((res) => console.log(res))
+        this.res =  original;
     }
 
     submit(){
-        return this.$http.post(this.url,this.res,{headers: {
-            token: `1:6273543320`
-        }}).then((res)=>{
+        this.source.patch(this.res.id, this.res).then((res)=>{
+            console.log(res);
             if(res){
                 this.$mdDialog.hide()
             }
-
         })
     }
 
 }
 
-export function getDialog($event: any, config: CrudTableConfig): ng.material.IDialogOptions {
+
+export function getDialog( config: CrudTableConfig, original, source): ng.material.IDialogOptions {
     var parentEl = angular.element(document.body);
     return {
         parent: parentEl,
@@ -45,9 +39,9 @@ export function getDialog($event: any, config: CrudTableConfig): ng.material.IDi
         controllerAs: "vm",
         clickOutsideToClose: true,
         locals: {
-            config: config
-        },
-        targetEvent: $event
+            config: config,
+            original: original,
+            source: source
+        }
     }
 }
-

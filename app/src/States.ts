@@ -2,6 +2,7 @@ import {indexState} from "./index/State"
 
 import {table as adGroupTable} from "./tables/adGroups"
 import {table as tables} from "./tables/tables"
+import {table as clients} from "./tables/leviafan/client"
 import {CrudTableConfig} from "./crud/table/CrudTableConfig";
 import {loginState} from "./auth/login/loginState";
 export const states: IRegisterMeta<ng.ui.IState>[] = [
@@ -34,17 +35,18 @@ export const states: IRegisterMeta<ng.ui.IState>[] = [
         }
     },
     {
-        name: "index.tables",
+        name: "index.clients",
         config: {
-            url: "tables",
+            url: "clients",
             template: "<ak-crud-table config=\"config\">",
             controller: ["config", "$scope", (config, s) => {
                 s['config'] = config
             }],
             resolve: {
-                config: (): CrudTableConfig => tables
+                config: (): CrudTableConfig => clients
             }
         }
     },
+
 
 ];

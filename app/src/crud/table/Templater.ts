@@ -42,6 +42,7 @@ export class Templater {
         angular.forEach(this.config.fields, (f) => {
             res.push(`<th md-column>${f.title}</th>`)
         });
+        res.push("<th md-column>Действия</th>");
         return res.join("\n")
     }
 
@@ -57,14 +58,24 @@ export class Templater {
             "<tbody md-body>" +
                 `<tr md-row ng-repeat='o in ${this.ctrlAs}.pager.data'>` +
                     this.getTds("o") +
+                    `<td md-cell><md-button ng-click='${this.ctrlAs}.edit(o)' class='md-raised'><i class='fa fa-pencil'></i> Редактировать</md-button><md-button ng-click='${this.ctrlAs}.delete(o)' class='md-raised'><i class='fa fa-trash-o'></i> Удалить</md-button></td>` +
                 "</tr>" +
             "</tbody>";
     }
 
     getTds(obj: string): string {
+        let obj1= obj;
         let res = [];
         angular.forEach(this.config.fields, (f) => {
-            res.push(`<td md-cell>${this.getCell(obj, f)}</td>`)
+            if(f.formly=="autocomplete"){
+                let relName = "";
+                angular.forEach(this.config.rels, (r) => {
+                    if(r.name == f.name) relName = r.field;
+                });
+                res.push(`<td md-cell ng-click='vm.editProp($event,o, ${f.name})'>{{o._relations.${relName}.name || 'Не указано'}}</td>`);
+            }else{
+                res.push(`<td md-cell>${this.getCell(obj, f)}</td>`);
+            }
         });
         return res.join("\n")
     }
