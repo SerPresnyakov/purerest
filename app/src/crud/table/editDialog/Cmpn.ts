@@ -15,7 +15,8 @@ class Ctrl {
 
         this.schema = Helper.getSchema(config.fields, config.rels, config.rest);
         this.url = config.url;
-        this.res =  original;
+        this.res = angular.copy(original);
+
     }
 
     submit(){

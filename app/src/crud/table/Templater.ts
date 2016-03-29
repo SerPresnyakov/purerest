@@ -72,7 +72,7 @@ export class Templater {
                 angular.forEach(this.config.rels, (r) => {
                     if(r.name == f.name) relName = r.field;
                 });
-                res.push(`<td md-cell ng-click='vm.editProp($event,o, ${f.name})'>{{o._relations.${relName}.name || 'Не указано'}}</td>`);
+                res.push(`<td md-cell ng-click='vm.editProp($event,o, "${f.name}")'>{{o._relations.${relName}.name || 'Не указано'}}</td>`);
             }else{
                 res.push(`<td md-cell>${this.getCell(obj, f)}</td>`);
             }
